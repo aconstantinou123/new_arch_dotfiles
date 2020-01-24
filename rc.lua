@@ -340,6 +340,9 @@ globalkeys = gears.table.join(
     -- Lock screen
     awful.key({ modkey}, "l", function () awful.spawn("i3lock -i ~/Downloads/new-wallpaper-1920×1080.png") end, {description = "lock screen", group = "custom"}),
 
+    -- open chrome
+    awful.key({ modkey}, "g", function () awful.spawn("google-chrome-stable --enable-features=WebUIDarkMode --force-dark-mode") end, {description = "lock screen", group = "custom"}),
+
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
               {description = "swap with next client by index", group = "client"}),
