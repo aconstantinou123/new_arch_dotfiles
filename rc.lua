@@ -21,6 +21,7 @@ local volumearc_widget = require("awesome-wm-widgets.volumearc-widget.volumearc"
 local brightnessarc_widget = require("awesome-wm-widgets.brightnessarc-widget.brightnessarc")
 local ram_widget = require("awesome-wm-widgets.ram-widget.ram-widget")
 local run_shell = require("awesome-wm-widgets.run-shell-3.run-shell")
+local spotify_widget = require("awesome-wm-widgets.spotify-widget.spotify")
 -- Net_widgets
 local net_widgets = require("net_widgets")
 -- Vicious widgets
@@ -57,8 +58,9 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
+awful.util.spawn_with_shell("picom --blur-method dual_kawase --blur-strength 9 --experimental-backends --config ~/.config/picom/picom.conf")
 beautiful.init("~/.config/awesome/themes/default/theme.lua")
-beautiful.font = "DejaVu Sans 10"
+beautiful.font = "Source Code Pro 10"
 beautiful.useless_gap = 10
 for s = 1, screen.count() do
 	gears.wallpaper.maximized(beautiful.wallpaper, s, true)
@@ -101,8 +103,11 @@ awful.layout.layouts = {
 myawesomemenu = {
    { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
    { "edit config", "code .config/awesome/rc.lua" },
-   { "restart", awesome.restart },
-   { "quit", function() awesome.quit() end },
+   { "reload wm", awesome.restart },
+   { "switch user", "dm-tool switch-to-greeter" },
+   { "logout", function() awesome.quit() end },
+   { "reboot", "reboot" },
+   { "shutdown", "shutdown -h now" },
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
@@ -127,7 +132,7 @@ mytextclock = wibox.widget.textclock()
 -- Wifi widget
 net_wireless = net_widgets.wireless({
     interface = "wlp1s0",
-    font = "Deja Vu Sans 10",
+    font = "Source Code Pro 10",
     onclick  = terminal .. " -e \"sudo wifi-menu\"",
 })
 
@@ -249,14 +254,17 @@ awful.screen.connect_for_each_screen(function(s)
             s.mytaglist,
             sprtr,
             s.mypromptbox,
+            spotify_widget({
+                font = "Source Code Pro 10",
+            }),
         },
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
+            wibox.widget.systray(),
             sprtr,
             mykeyboardlayout,
             sprtr,
-            wibox.widget.systray(),
             -- ram_widget(),
             -- sprtr,
             -- cpu_widget(),
@@ -269,7 +277,7 @@ awful.screen.connect_for_each_screen(function(s)
             brightnessarc_widget(),
             sprtr,
             volumearc_widget({
-                -- main_color = '#af13f7',
+                main_color = '#fed8b1',
                 -- mute_color = '#ff0000',
                 -- thickness = 5,
                 height = 20,
@@ -303,10 +311,10 @@ root.buttons(gears.table.join(
 globalkeys = gears.table.join(
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
-    awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
-              {description = "view previous", group = "tag"}),
-    awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
-              {description = "view next", group = "tag"}),
+    -- awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
+    --           {description = "view previous", group = "tag"}),
+    -- awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
+    --           {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
 
@@ -340,8 +348,10 @@ globalkeys = gears.table.join(
     -- Lock screen
     awful.key({ modkey}, "l", function () awful.spawn("i3lock -i ~/Downloads/new-wallpaper-1920×1080.png") end, {description = "lock screen", group = "custom"}),
 
-    -- open chrome
-    awful.key({ modkey}, "g", function () awful.spawn("google-chrome-stable --enable-features=WebUIDarkMode --force-dark-mode") end, {description = "lock screen", group = "custom"}),
+    -- open brave brpwser
+    -- awful.key({ modkey}, "g", function () awful.spawn("google-chrome-stable --enable-features=WebUIDarkMode --force-dark-mode") end, {description = "lock screen", group = "custom"}),
+    -- open brave browser
+    awful.key({ modkey}, "g", function () awful.spawn("brave") end, {description = "lock screen", group = "custom"}),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
@@ -623,7 +633,7 @@ client.connect_signal("request::titlebars", function(c)
 
     awful.titlebar(c) : setup {
         { -- Left
-	    height = 20,
+	        height = 20,
             awful.titlebar.widget.iconwidget(c),
             buttons = buttons,
             layout  = wibox.layout.fixed.horizontal
@@ -634,7 +644,7 @@ client.connect_signal("request::titlebars", function(c)
                 widget = awful.titlebar.widget.titlewidget(c)
             },
             buttons = buttons,
-            layout  = wibox.layout.flex.horizontal
+            layout  = wibox.layout.flex.horizontal,
         },
         { -- Right
             awful.titlebar.widget.floatingbutton (c),
@@ -656,3 +666,5 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
+require("collision")()
