@@ -100,9 +100,25 @@ awful.layout.layouts = {
 
 -- {{{ Menu
 -- Create a launcher widget and a main menu
+
+projects = {
+    { "adam", "code lumera_health/adam" }
+}
+
+configmenu = {
+    { "acpi", "sudo code /etc/acpi/handler.sh"},
+    { "awesome", "code .config/awesome/rc.lua" },
+    { "awesome theme", "code .config/awesome/themes/default/theme.lua" },
+    { "conky", "code .config/conky/conky.conf"},
+    { "terminator", "code .config/terminator/config"},
+    { "xinit", "code .xinitrc" },
+    { "zsh", "code .zshrc" },
+}
+
 myawesomemenu = {
+   { "config files", configmenu },
+   { "projects", projects },
    { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-   { "edit config", "code .config/awesome/rc.lua" },
    { "reload wm", awesome.restart },
    { "switch user", "dm-tool switch-to-greeter" },
    { "logout", function() awesome.quit() end },
@@ -115,7 +131,7 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                   }
                         })
 
-mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
+mylauncher = awful.widget.launcher({ image = "Pictures/arch.png",
                                      menu = mymainmenu })
 
 -- Menubar configuration
@@ -244,11 +260,15 @@ awful.screen.connect_for_each_screen(function(s)
     sprtr = wibox.widget.textbox()
     sprtr:set_text(" | ")
 
+    space = wibox.widget.textbox()
+    space:set_text(" ")
+
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
+            space,
             mylauncher,
             sprtr,
             s.mytaglist,
