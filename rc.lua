@@ -60,7 +60,7 @@ end
 -- Themes define colours, icons, font and wallpapers.
 awful.util.spawn_with_shell("picom --blur-method dual_kawase --blur-strength 9 --experimental-backends --config ~/.config/picom/picom.conf")
 beautiful.init("~/.config/awesome/themes/default/theme.lua")
-beautiful.font = "Source Code Pro 10"
+beautiful.font = "URW Gothic 10"
 beautiful.useless_gap = 10
 for s = 1, screen.count() do
 	gears.wallpaper.maximized(beautiful.wallpaper, s, true)
@@ -110,24 +110,25 @@ configmenu = {
     { "awesome", "code .config/awesome/rc.lua" },
     { "awesome theme", "code .config/awesome/themes/default/theme.lua" },
     { "conky", "code .config/conky/conky.conf"},
+    { "lightdm", "sudo code /etc/lightdm/slick-greeter.conf"},
     { "terminator", "code .config/terminator/config"},
     { "xinit", "code .xinitrc" },
     { "zsh", "code .zshrc" },
 }
 
 myawesomemenu = {
-   { "config files", configmenu },
-   { "projects", projects },
    { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
    { "reload wm", awesome.restart },
-   { "switch user", "dm-tool switch-to-greeter" },
-   { "logout", function() awesome.quit() end },
-   { "reboot", "reboot" },
-   { "shutdown", "shutdown -h now" },
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "open terminal", terminal }
+                                    { "config files", configmenu },
+                                    { "projects", projects },
+                                    { "open terminal", terminal },
+                                    { "switch user", "dm-tool switch-to-greeter" },
+                                    { "logout", function() awesome.quit() end },
+                                    { "reboot", "reboot" },
+                                    { "shutdown", "shutdown -h now" },
                                   }
                         })
 
@@ -148,7 +149,7 @@ mytextclock = wibox.widget.textclock()
 -- Wifi widget
 net_wireless = net_widgets.wireless({
     interface = "wlp1s0",
-    font = "Source Code Pro 10",
+    font = "URW Gothic 10",
     onclick  = terminal .. " -e \"sudo wifi-menu\"",
 })
 
@@ -258,7 +259,7 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Splitters
     sprtr = wibox.widget.textbox()
-    sprtr:set_text(" | ")
+    sprtr:set_text("  |  ")
 
     space = wibox.widget.textbox()
     space:set_text(" ")
@@ -275,7 +276,7 @@ awful.screen.connect_for_each_screen(function(s)
             sprtr,
             s.mypromptbox,
             spotify_widget({
-                font = "Source Code Pro 10",
+                font = "URW Gothic 10",
             }),
         },
         s.mytasklist, -- Middle widget
