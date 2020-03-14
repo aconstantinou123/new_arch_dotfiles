@@ -26,6 +26,8 @@ local spotify_widget = require("awesome-wm-widgets.spotify-widget.spotify")
 local net_widgets = require("net_widgets")
 -- Vicious widgets
 local vicious = require("vicious")
+-- Custom button
+local custom_button = require("buttons.custom_button")
 
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
@@ -255,27 +257,17 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height = 30 })
+    s.mywibox = awful.wibar({ position = "top", screen = s, height = 23 })
 
     -- Splitters
     sprtr = wibox.widget.textbox()
-    sprtr:set_text("  |  ")
+    sprtr:set_text(" | ")
 
     space = wibox.widget.textbox()
     space:set_text("  ")
 
-    local button 
-    
-    = awful.widget.button({
-        image = "/home/alex/.config/awesome/buttons/spotify.png",
-    })
-    button:buttons(gears.table.join(
-        button:buttons(),
-        awful.button({}, 1, nil, function ()
-            -- awful.spawn(terminal.." -e spotify")
-            awful.spawn({"spotify"})
-        end)
-    ))
+    single_space = wibox.widget.textbox()
+    single_space:set_text(" ")
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -287,7 +279,31 @@ awful.screen.connect_for_each_screen(function(s)
             sprtr,
             s.mytaglist,
             sprtr,
-            button,
+            -- button,
+            custom_button({
+                image = "/home/alex/.config/awesome/buttons/code.png",
+                command = "code"
+            }),
+            space,
+            custom_button({
+                image = "/home/alex/.config/awesome/buttons/postman.png",
+                command = "postman"
+            }),
+            space,
+            custom_button({
+                image = "/home/alex/.config/awesome/buttons/brave.png",
+                command = "brave"
+            }),
+            single_space,
+            custom_button({
+                image = "/home/alex/.config/awesome/buttons/spotify.png",
+                command = "spotify"
+            }),
+            single_space,
+            custom_button({
+                image = "/home/alex/.config/awesome/buttons/vlc.png",
+                command = "vlc"
+            }),
             sprtr,
             s.mypromptbox,
             spotify_widget({
