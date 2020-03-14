@@ -262,7 +262,20 @@ awful.screen.connect_for_each_screen(function(s)
     sprtr:set_text("  |  ")
 
     space = wibox.widget.textbox()
-    space:set_text(" ")
+    space:set_text("  ")
+
+    local button 
+    
+    = awful.widget.button({
+        image = "/home/alex/.config/awesome/buttons/spotify.png",
+    })
+    button:buttons(gears.table.join(
+        button:buttons(),
+        awful.button({}, 1, nil, function ()
+            -- awful.spawn(terminal.." -e spotify")
+            awful.spawn({"spotify"})
+        end)
+    ))
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -273,6 +286,8 @@ awful.screen.connect_for_each_screen(function(s)
             mylauncher,
             sprtr,
             s.mytaglist,
+            sprtr,
+            button,
             sprtr,
             s.mypromptbox,
             spotify_widget({
