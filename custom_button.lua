@@ -17,7 +17,8 @@ local function worker(args)
     button:buttons(gears.table.join(
         button:buttons(),
         awful.button({}, 1, nil, function ()
-            awful.spawn({command})
+            -- awful.spawn({command})
+            awful.spawn.with_shell(command)
         end)
     ))
     

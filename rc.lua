@@ -257,7 +257,7 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height = 23 })
+    s.mywibox = awful.wibar({ position = "top", screen = s, height = 25 })
 
     -- Splitters
     sprtr = wibox.widget.textbox()
@@ -281,10 +281,20 @@ awful.screen.connect_for_each_screen(function(s)
             sprtr,
             -- button,
             custom_button({
-                image = "/home/alex/.config/awesome/buttons/code.png",
+                image = "/home/alex/.config/awesome/buttons/vscode.png",
                 command = "code"
             }),
             space,
+            custom_button({
+                image = "/home/alex/.config/awesome/buttons/terminal.png",
+                command = terminal
+            }),
+            single_space,
+            custom_button({
+                image = "/home/alex/.config/awesome/buttons/folder.png",
+                command = terminal .. " -e ranger"
+            }),
+            -- space,
             custom_button({
                 image = "/home/alex/.config/awesome/buttons/postman.png",
                 command = "postman"
@@ -303,6 +313,11 @@ awful.screen.connect_for_each_screen(function(s)
             custom_button({
                 image = "/home/alex/.config/awesome/buttons/vlc.png",
                 command = "vlc"
+            }),
+            single_space,
+            custom_button({
+                image = "/home/alex/.config/awesome/buttons/steam.jpg",
+                command = "flatpak run com.valvesoftware.Steam"
             }),
             sprtr,
             s.mypromptbox,
