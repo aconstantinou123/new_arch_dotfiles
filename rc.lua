@@ -104,7 +104,8 @@ awful.layout.layouts = {
 -- Create a launcher widget and a main menu
 
 projects = {
-    { "adam", "code lumera_health/adam" }
+    { "adam", "code lumera_health/adam" },
+    { "via", "code lumera_health/via" },
 }
 
 configmenu = {
@@ -263,8 +264,8 @@ awful.screen.connect_for_each_screen(function(s)
     sprtr = wibox.widget.textbox()
     sprtr:set_text(" | ")
 
-    space = wibox.widget.textbox()
-    space:set_text("  ")
+    double_space = wibox.widget.textbox()
+    double_space:set_text("  ")
 
     single_space = wibox.widget.textbox()
     single_space:set_text(" ")
@@ -274,7 +275,7 @@ awful.screen.connect_for_each_screen(function(s)
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            space,
+            double_space,
             mylauncher,
             sprtr,
             s.mytaglist,
@@ -284,7 +285,12 @@ awful.screen.connect_for_each_screen(function(s)
                 image = "/home/alex/.config/awesome/buttons/vscode.png",
                 command = "code"
             }),
-            space,
+            double_space,
+            custom_button({
+                image = "/home/alex/.config/awesome/buttons/vim.png",
+                command = terminal .. " -e vim"
+            }),
+            double_space,
             custom_button({
                 image = "/home/alex/.config/awesome/buttons/terminal.png",
                 command = terminal
@@ -299,17 +305,17 @@ awful.screen.connect_for_each_screen(function(s)
                 image = "/home/alex/.config/awesome/buttons/postman.png",
                 command = "postman"
             }),
-            space,
+            double_space,
             custom_button({
                 image = "/home/alex/.config/awesome/buttons/brave.png",
                 command = "brave"
             }),
-            single_space,
+            -- single_space,
             custom_button({
                 image = "/home/alex/.config/awesome/buttons/spotify.png",
                 command = "spotify"
             }),
-            single_space,
+            -- single_space,
             custom_button({
                 image = "/home/alex/.config/awesome/buttons/vlc.png",
                 command = "vlc"
@@ -318,6 +324,21 @@ awful.screen.connect_for_each_screen(function(s)
             custom_button({
                 image = "/home/alex/.config/awesome/buttons/steam.jpg",
                 command = "flatpak run com.valvesoftware.Steam"
+            }),
+            single_space,
+            custom_button({
+                image = "/home/alex/.config/awesome/buttons/skype.png",
+                command = "skypeforlinux"
+            }),
+            single_space,
+            custom_button({
+                image = "/home/alex/.config/awesome/buttons/slack.png",
+                command = "slack"
+            }),
+            double_space,
+            custom_button({
+                image = "/home/alex/.config/awesome/buttons/gimp.png",
+                command = "gimp"
             }),
             sprtr,
             s.mypromptbox,
