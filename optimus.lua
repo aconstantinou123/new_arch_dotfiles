@@ -35,7 +35,7 @@ local function worker(args)
     local optimus_text = wibox.widget.textbox()
     optimus_text.font = font
     optimus_text:set_text("")
-    
+
     local function optimus_update()
 	awful.spawn.easy_async("optimus-manager --print-mode", function(stdout, stderr, reason, exit_code)
           optimus_output = tostring( stdout )
@@ -49,7 +49,6 @@ local function worker(args)
             onclick = terminal .. " -e \"optimus-manager --switch nvidia\""
         elseif string.find(optimus_output, "hybrid") then
             optimus_output = "  HYBRID"
-            onclick = terminal .. " -e ranger"
         end
         optimus_text:set_text(optimus_output)
         optimus:attach(widget,{onclick = onclick})
