@@ -28,6 +28,8 @@ local net_widgets = require("net_widgets")
 local vicious = require("vicious")
 -- Custom button
 local custom_button = require("buttons.custom_button")
+-- Optimus widget
+local optimus_widget = require("optimus.optimus")
 
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
@@ -156,6 +158,12 @@ net_wireless = net_widgets.wireless({
     onclick  = terminal .. " -e \"sudo wifi-menu\"",
 })
 
+-- Optimus widget
+optimus = optimus_widget({
+    font = "URW Gothic 10",
+    onclick  = terminal .. " -e \"optimus-manager --switch intel\"",
+})
+
 wifiwidget = wibox.widget.textbox()
 vicious.register(wifiwidget, vicious.widgets.wifi, "${link}", 19, "wlan0")
 
@@ -282,6 +290,10 @@ awful.screen.connect_for_each_screen(function(s)
             sprtr,
             -- button,
             custom_button({
+                image = "/home/alex/.config/awesome/buttons/folder.png",
+                command = terminal .. " -e ranger"
+            }),
+            custom_button({
                 image = "/home/alex/.config/awesome/buttons/vscode.png",
                 command = "code"
             }),
@@ -297,25 +309,28 @@ awful.screen.connect_for_each_screen(function(s)
             }),
             single_space,
             custom_button({
-                image = "/home/alex/.config/awesome/buttons/folder.png",
-                command = terminal .. " -e ranger"
+                image = "/home/alex/.config/awesome/buttons/kube-forwarder.png",
+                command = "~/apps/kube-forwarder/kube-forwarder.AppImage"
             }),
-            -- space,
+            single_space,
             custom_button({
                 image = "/home/alex/.config/awesome/buttons/postman.png",
                 command = "postman"
             }),
-            double_space,
+            single_space,
+            custom_button({
+                image = "/home/alex/.config/awesome/buttons/mongodb.png",
+                command = "robo3t"
+            }),
+            single_space,
             custom_button({
                 image = "/home/alex/.config/awesome/buttons/brave.png",
                 command = "brave"
             }),
-            -- single_space,
             custom_button({
                 image = "/home/alex/.config/awesome/buttons/spotify.png",
                 command = "spotify"
             }),
-            -- single_space,
             custom_button({
                 image = "/home/alex/.config/awesome/buttons/vlc.png",
                 command = "vlc"
@@ -335,7 +350,12 @@ awful.screen.connect_for_each_screen(function(s)
                 image = "/home/alex/.config/awesome/buttons/slack.png",
                 command = "slack"
             }),
-            double_space,
+            single_space,
+            custom_button({
+                image = "/home/alex/.config/awesome/buttons/notion.png",
+                command = "notion-app"
+            }),
+            single_space,
             custom_button({
                 image = "/home/alex/.config/awesome/buttons/gimp.png",
                 command = "gimp"
@@ -360,6 +380,8 @@ awful.screen.connect_for_each_screen(function(s)
             -- tempwidget,
             -- sprtr,
             -- wifiwidget,
+            optimus,
+            sprtr,
             net_wireless,
             sprtr,
             brightnessarc_widget(),
