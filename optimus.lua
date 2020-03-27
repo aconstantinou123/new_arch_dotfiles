@@ -42,13 +42,13 @@ local function worker(args)
         end)
         
         if string.find(optimus_output, "nvidia") then
-            optimus_output = "  NVIDIA"
+            optimus_output = "  GPU mode: Nvidia"
             onclick = terminal .. " -e \"optimus-manager --switch intel\""
         elseif string.find(optimus_output, "intel") then
-            optimus_output = "  INTEL"
+            optimus_output = "  GPU mode: Intel"
             onclick = terminal .. " -e \"optimus-manager --switch nvidia\""
         elseif string.find(optimus_output, "hybrid") then
-            optimus_output = "  HYBRID"
+            optimus_output = "  GPU mode: Hybrid"
         end
         optimus_text:set_text(optimus_output)
         optimus:attach(widget,{onclick = onclick})
