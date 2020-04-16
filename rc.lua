@@ -337,7 +337,7 @@ awful.screen.connect_for_each_screen(function(s)
             }),
             single_space,
             custom_button({
-                image = "/home/alex/.config/awesome/buttons/steam.jpg",
+                image = "/home/alex/.config/awesome/buttons/steam.png",
                 command = "flatpak run com.valvesoftware.Steam"
             }),
             single_space,
@@ -453,9 +453,9 @@ globalkeys = gears.table.join(
     awful.key({ modkey}, "\\", function () awful.spawn("amixer set Master +1 toggle") end, {description = "mute volume", group = "custom"}),
 
     -- Screenshot
-    awful.key({ modkey}, "z", function () awful.spawn("maim /home/alex/Pictures/" .. os.date("%Y%m%d%H%M%S") .. ".png") end, {description = "take screenshot", group = "custom"}),
+    awful.key({ modkey}, "z", function () awful.spawn("maim /home/alex/Pictures/" .. os.date("%Y-%m-%d-%H:%M:%S") .. ".png") end, {description = "take screenshot", group = "custom"}),
 
-    awful.key({ modkey}, "c", function () awful.spawn("maim -s /home/alex/Pictures/" .. os.date("%Y%m%d%H%M%S") .. ".png") end, {description = "take snip", group = "custom"}),
+    awful.key({ modkey}, "c", function () awful.spawn("maim -s /home/alex/Pictures/" .. os.date("%Y-%m-%d-%H:%M:%S") .. ".png") end, {description = "take snip", group = "custom"}),
 
     -- Lock screen
     awful.key({ modkey}, "l", function () awful.spawn("i3lock -i ~/Downloads/new-wallpaper-1920×1080.png") end, {description = "lock screen", group = "custom"}),
