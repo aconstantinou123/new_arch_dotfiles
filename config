@@ -13,7 +13,7 @@
     show_titlebar = False
     scrollbar_position = hidden
     scrollback_infinite = True
-    palette = "#141414:#a95551:#666666:#a98051:#e9ddcf:#767676:#c9c9c9:#d0b8a3:#474747:#a97775:#8c8c8c:#a99175:#adadad:#a3a3a3:#dcdcdc:#d8c8bb"
+    palette = "#141414:#5b544c:#666666:#a98051:#e9ddcf:#767676:#c9c9c9:#d0b8a3:#474747:#ada9a5:#8c8c8c:#a99175:#adadad:#a3a3a3:#dcdcdc:#d8c8bb"
     use_system_font = False
   [[3024 Night]]
     background_color = "#011116"
