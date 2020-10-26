@@ -137,7 +137,7 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                   }
                         })
 
-mylauncher = awful.widget.launcher({ image = "/home/alex/Pictures/awesome_icons/arch.png",
+mylauncher = awful.widget.launcher({ image = "/home/alex/Pictures/awesome_icons/arch-linux.png",
                                      menu = mymainmenu })
 
 -- Menubar configuration
@@ -393,7 +393,7 @@ awful.screen.connect_for_each_screen(function(s)
             brightnessarc_widget(),
             sprtr,
             volumearc_widget({
-                main_color = '#a9b8b3',
+                main_color = '#e9ddcf',
                 -- mute_color = '#ff0000',
                 -- thickness = 5,
                 height = 20,
@@ -788,3 +788,6 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 require("collision")()
 
 awful.spawn.with_shell("/home/alex/.config/awesome/autorun.sh")
+
+-- 0, 3 #86AF80
+-- 0, 5 #6495ED
