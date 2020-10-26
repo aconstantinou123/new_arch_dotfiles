@@ -137,7 +137,7 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                   }
                         })
 
-mylauncher = awful.widget.launcher({ image = "Pictures/arch.png",
+mylauncher = awful.widget.launcher({ image = "/home/alex/Pictures/awesome_icons/arch.png",
                                      menu = mymainmenu })
 
 -- Menubar configuration
@@ -327,6 +327,12 @@ awful.screen.connect_for_each_screen(function(s)
                 image = "/home/alex/.config/awesome/buttons/brave.png",
                 command = "brave"
             }),
+            single_space,
+            custom_button({
+                image = "/home/alex/.config/awesome/buttons/tor.png",
+                command = "tor-browser"
+            }),
+            single_space,
             custom_button({
                 image = "/home/alex/.config/awesome/buttons/spotify.png",
                 command = "spotify"
@@ -350,15 +356,15 @@ awful.screen.connect_for_each_screen(function(s)
                 image = "/home/alex/.config/awesome/buttons/slack.png",
                 command = "slack"
             }),
-            single_space,
-            custom_button({
-                image = "/home/alex/.config/awesome/buttons/notion.png",
-                command = "notion-app"
-            }),
-            single_space,
+            double_space,
             custom_button({
                 image = "/home/alex/.config/awesome/buttons/gimp.png",
                 command = "gimp"
+            }),
+            single_space,
+            custom_button({
+                image = "/home/alex/.config/awesome/buttons/timeshift.png",
+                command = "sudo timeshift-launcher"
             }),
             sprtr,
             s.mypromptbox,
@@ -387,7 +393,7 @@ awful.screen.connect_for_each_screen(function(s)
             brightnessarc_widget(),
             sprtr,
             volumearc_widget({
-                main_color = '#fed8b1',
+                main_color = '#a9b8b3',
                 -- mute_color = '#ff0000',
                 -- thickness = 5,
                 height = 20,

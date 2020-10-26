@@ -13,16 +13,16 @@ local theme = {}
 
 theme.font          = "sans 8"
 
-theme.bg_normal     = "#00000080"
+theme.bg_normal     = "#00000000"
 theme.bg_focus      = "#32323200"
 theme.bg_urgent     = "#ff0000"
-theme.bg_minimize   = "#444444"
+theme.bg_minimize   = "#282f39"
 theme.bg_systray    = theme.bg_normal
 
-theme.fg_normal     = "#fed8b1"
-theme.fg_focus      = "#ffffff"
-theme.fg_urgent     = "#ffffff"
-theme.fg_minimize   = "#ffffff"
+theme.fg_normal     = "#a9b8b3"
+theme.fg_focus      = "#e1f5f1"
+theme.fg_urgent     = "#e1f5f1"
+theme.fg_minimize   = "#e1f5f1"
 
 theme.useless_gap   = dpi(0)
 theme.border_width  = dpi(0)
@@ -97,7 +97,7 @@ theme.titlebar_maximized_button_focus_inactive  = themes_path.."default/titlebar
 theme.titlebar_maximized_button_normal_active = themes_path.."default/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active  = themes_path.."default/titlebar/maximized_focus_active.png"
 
-theme.wallpaper = "~/Pictures/wallpapers/mars.png"
+theme.wallpaper = "~/Pictures/wallpapers/dark_forest3.png"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = themes_path.."default/layouts/fairhw.png"
