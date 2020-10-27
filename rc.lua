@@ -30,10 +30,15 @@ local vicious = require("vicious")
 local custom_button = require("buttons.custom_button")
 -- Optimus widget
 local optimus_widget = require("optimus.optimus")
+local xresources = require("beautiful.xresources")
+local dpi = xresources.apply_dpi
 
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
+
+-- awful.spawn.with_shell('/home/alex/.config/awesome/locker.sh')
+
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -675,6 +680,16 @@ awful.rules.rules = {
                      buttons = clientbuttons,
                      screen = awful.screen.preferred,
                      placement = awful.placement.no_overlap+awful.placement.no_offscreen
+        }
+    },
+
+    { rule_any = { 
+        class = {
+            "Conky",
+        }
+    },
+      properties = { 
+          border_width = dpi(0)
      }
     },
 
@@ -785,9 +800,12 @@ client.connect_signal("focus", function(c) c.border_color = beautiful.border_foc
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
+client.connect_signal("property::class", function(c) 
+    if c.class == "conky (archlinux)" then
+        c.border_width = 0
+        end
+end)
+
 require("collision")()
 
 awful.spawn.with_shell("/home/alex/.config/awesome/autorun.sh")
-
--- 0, 3 #86AF80
--- 0, 5 #6495ED
