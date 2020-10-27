@@ -1,11 +1,14 @@
 # if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
     #startx
 # fi
-
-
+# fortune | cowsay -f tux
+autoload -Uz compinit
+compinit
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"~
+source ~/_istioctl
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH:$HOME/.cargo/bin
+export PATH=$HOME/bin:/usr/local/bin:$PATH:$HOME/.cargo/bin:$PATH:$HOME/.local/bin
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -22,6 +25,24 @@ export EDITOR='code -w'
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="bullet-train"
+
+BULLETTRAIN_PROMPT_ORDER=(
+    time
+    status
+    custom
+    context
+    dir
+    #perl
+    ruby
+    virtualenv
+    #nvm
+    aws
+    go
+    #elixir
+    git
+    #hg
+    cmd_exec_time
+  )
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -111,8 +132,12 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 alias lock="i3lock -i ~/Downloads/new-wallpaper-1920×1080.png"
 alias e="exit"
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
+alias rr="ranger"
+alias adam="code ~/lumera_health/adam"
+alias steam="flatpak run com.valvesoftware.Steam"
+alias clean="sudo paccache --remove --keep 1 && sudo journalctl --vacuum-size=50M"
+alias zshconfig="code ~/.zshrc"
+alias xmr="~/Downloads/xmr_stak/xmr-stak-rx-linux-1.0.5-cpu/xmr-stak-rx"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 source <(kubectl completion zsh)
