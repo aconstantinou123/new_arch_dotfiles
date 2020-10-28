@@ -127,11 +127,14 @@ configmenu = {
 }
 
 myawesomemenu = {
-   { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
+   { "hotkeys", function() 
+        hotkeys_popup.show_help(nil, awful.screen.focused()) 
+    end
+   },
    { "reload wm", awesome.restart },
 }
 
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
+mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu },
                                     { "config files", configmenu },
                                     { "projects", projects },
                                     { "open terminal", terminal },
@@ -139,7 +142,7 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                     { "logout", function() awesome.quit() end },
                                     { "reboot", "reboot" },
                                     { "shutdown", "shutdown -h now" },
-                                  }
+                                  },
                         })
 
 mylauncher = awful.widget.launcher({ image = "/home/alex/Pictures/awesome_icons/arch-linux.png",
@@ -265,13 +268,53 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist {
-        screen  = s,
-        filter  = awful.widget.tasklist.filter.currenttags,
-        buttons = tasklist_buttons,
+        screen   = s,
+        filter   = awful.widget.tasklist.filter.currenttags,
+        buttons  = tasklist_buttons,
+        style    = {
+            shape_border_width = 2,
+            shape_border_color = '#777777',
+            shape  = gears.shape.rounded_rect,
+        },
+        layout   = {
+            spacing = 10,
+            layout  = wibox.layout.flex.horizontal
+        },
+        -- Notice that there is *NO* wibox.wibox prefix, it is a template,
+        -- not a widget instance.
+        widget_template = {
+            {
+                {
+                    {
+                        {
+                            id     = 'icon_role',
+                            widget = wibox.widget.imagebox,
+                        },
+                        margins = 5,
+                        widget  = wibox.container.margin,
+                    },
+                    {
+                        id     = 'text_role',
+                        widget = wibox.widget.textbox,
+                    },
+                    layout = wibox.layout.fixed.horizontal,
+                },
+                left  = 10,
+                right = 10,
+                widget = wibox.container.margin
+            },
+            id     = 'background_role',
+            widget = wibox.container.background,
+        },
     }
+    
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height = 32 })
+    s.mywibox = awful.wibar({ 
+        position = "top", 
+        screen = s, 
+        height = 32,
+     })
 
     -- Splitters
     sprtr = wibox.widget.textbox()
@@ -385,13 +428,6 @@ awful.screen.connect_for_each_screen(function(s)
                 sprtr,
                 mykeyboardlayout,
                 sprtr,
-                -- ram_widget(),
-                -- sprtr,
-                -- cpu_widget(),
-                -- sprtr,
-                -- tempwidget,
-                -- sprtr,
-                -- wifiwidget,
                 optimus,
                 sprtr,
                 net_wireless,
@@ -810,6 +846,12 @@ client.connect_signal("property::class", function(c)
     if c.class == "conky (archlinux)" then
         c.border_width = 0
         end
+end)
+
+client.connect_signal("manage", function (c)
+    c.shape = function(cr,w,h)
+        gears.shape.rounded_rect(cr,w,h,15)
+    end
 end)
 
 require("collision")()
