@@ -267,11 +267,11 @@ awful.screen.connect_for_each_screen(function(s)
     s.mytasklist = awful.widget.tasklist {
         screen  = s,
         filter  = awful.widget.tasklist.filter.currenttags,
-        buttons = tasklist_buttons
+        buttons = tasklist_buttons,
     }
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height = 25 })
+    s.mywibox = awful.wibar({ position = "top", screen = s, height = 32 })
 
     -- Splitters
     sprtr = wibox.widget.textbox()
@@ -285,137 +285,143 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Add widgets to the wibox
     s.mywibox:setup {
-        layout = wibox.layout.align.horizontal,
-        { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
-            double_space,
-            mylauncher,
-            sprtr,
-            s.mytaglist,
-            sprtr,
-            -- button,
-            custom_button({
-                image = "/home/alex/.config/awesome/buttons/folder.png",
-                command = terminal .. " -e ranger"
-            }),
-            custom_button({
-                image = "/home/alex/.config/awesome/buttons/vscode.png",
-                command = "code"
-            }),
-            double_space,
-            custom_button({
-                image = "/home/alex/.config/awesome/buttons/vim.png",
-                command = terminal .. " -e vim"
-            }),
-            double_space,
-            custom_button({
-                image = "/home/alex/.config/awesome/buttons/terminal.png",
-                command = terminal
-            }),
-            single_space,
-            custom_button({
-                image = "/home/alex/.config/awesome/buttons/kube-forwarder.png",
-                command = "~/apps/kube-forwarder/kube-forwarder.AppImage"
-            }),
-            single_space,
-            custom_button({
-                image = "/home/alex/.config/awesome/buttons/postman.png",
-                command = "postman"
-            }),
-            single_space,
-            custom_button({
-                image = "/home/alex/.config/awesome/buttons/mongodb.png",
-                command = "robo3t"
-            }),
-            single_space,
-            custom_button({
-                image = "/home/alex/.config/awesome/buttons/brave.png",
-                command = "brave"
-            }),
-            single_space,
-            custom_button({
-                image = "/home/alex/.config/awesome/buttons/tor.png",
-                command = "tor-browser"
-            }),
-            single_space,
-            custom_button({
-                image = "/home/alex/.config/awesome/buttons/spotify.png",
-                command = "spotify"
-            }),
-            custom_button({
-                image = "/home/alex/.config/awesome/buttons/vlc.png",
-                command = "vlc"
-            }),
-            single_space,
-            custom_button({
-                image = "/home/alex/.config/awesome/buttons/steam.png",
-                command = "flatpak run com.valvesoftware.Steam"
-            }),
-            single_space,
-            custom_button({
-                image = "/home/alex/.config/awesome/buttons/skype.png",
-                command = "skypeforlinux"
-            }),
-            single_space,
-            custom_button({
-                image = "/home/alex/.config/awesome/buttons/slack.png",
-                command = "slack"
-            }),
-            double_space,
-            custom_button({
-                image = "/home/alex/.config/awesome/buttons/gimp.png",
-                command = "gimp"
-            }),
-            single_space,
-            custom_button({
-                image = "/home/alex/.config/awesome/buttons/timeshift.png",
-                command = "sudo timeshift-launcher"
-            }),
-            sprtr,
-            s.mypromptbox,
-            spotify_widget({
-                font = "URW Gothic 10",
-            }),
+        {
+            layout = wibox.layout.align.horizontal,
+            { -- Left widgets
+                layout = wibox.layout.fixed.horizontal,
+                double_space,
+                mylauncher,
+                sprtr,
+                s.mytaglist,
+                sprtr,
+                -- button,
+                custom_button({
+                    image = "/home/alex/.config/awesome/buttons/folder.png",
+                    command = terminal .. " -e ranger"
+                }),
+                custom_button({
+                    image = "/home/alex/.config/awesome/buttons/vscode.png",
+                    command = "code"
+                }),
+                double_space,
+                custom_button({
+                    image = "/home/alex/.config/awesome/buttons/vim.png",
+                    command = terminal .. " -e vim"
+                }),
+                double_space,
+                custom_button({
+                    image = "/home/alex/.config/awesome/buttons/terminal.png",
+                    command = terminal
+                }),
+                single_space,
+                custom_button({
+                    image = "/home/alex/.config/awesome/buttons/kube-forwarder.png",
+                    command = "~/apps/kube-forwarder/kube-forwarder.AppImage"
+                }),
+                single_space,
+                custom_button({
+                    image = "/home/alex/.config/awesome/buttons/postman.png",
+                    command = "postman"
+                }),
+                single_space,
+                custom_button({
+                    image = "/home/alex/.config/awesome/buttons/mongodb.png",
+                    command = "robo3t"
+                }),
+                single_space,
+                custom_button({
+                    image = "/home/alex/.config/awesome/buttons/brave.png",
+                    command = "brave"
+                }),
+                single_space,
+                custom_button({
+                    image = "/home/alex/.config/awesome/buttons/tor.png",
+                    command = "tor-browser"
+                }),
+                single_space,
+                custom_button({
+                    image = "/home/alex/.config/awesome/buttons/spotify.png",
+                    command = "spotify"
+                }),
+                custom_button({
+                    image = "/home/alex/.config/awesome/buttons/vlc.png",
+                    command = "vlc"
+                }),
+                single_space,
+                custom_button({
+                    image = "/home/alex/.config/awesome/buttons/steam.png",
+                    command = "flatpak run com.valvesoftware.Steam"
+                }),
+                single_space,
+                custom_button({
+                    image = "/home/alex/.config/awesome/buttons/skype.png",
+                    command = "skypeforlinux"
+                }),
+                single_space,
+                custom_button({
+                    image = "/home/alex/.config/awesome/buttons/slack.png",
+                    command = "slack"
+                }),
+                double_space,
+                custom_button({
+                    image = "/home/alex/.config/awesome/buttons/gimp.png",
+                    command = "gimp"
+                }),
+                single_space,
+                custom_button({
+                    image = "/home/alex/.config/awesome/buttons/timeshift.png",
+                    command = "sudo timeshift-launcher"
+                }),
+                sprtr,
+                s.mypromptbox,
+                spotify_widget({
+                    font = "URW Gothic 10",
+                }),
+            },
+            s.mytasklist, -- Middle widget
+            { -- Right widgets
+                layout = wibox.layout.fixed.horizontal,
+                wibox.widget.systray(),
+                sprtr,
+                mykeyboardlayout,
+                sprtr,
+                -- ram_widget(),
+                -- sprtr,
+                -- cpu_widget(),
+                -- sprtr,
+                -- tempwidget,
+                -- sprtr,
+                -- wifiwidget,
+                optimus,
+                sprtr,
+                net_wireless,
+                sprtr,
+                brightnessarc_widget(),
+                sprtr,
+                volumearc_widget({
+                    main_color = '#e9ddcf',
+                    -- mute_color = '#ff0000',
+                    -- thickness = 5,
+                    height = 20,
+                    get_volume_cmd = "amixer sget Master",
+                    inc_volume_cmd = "amixer sset Master 5%+",
+                    dec_volume_cmd = "amixer sset Master 5%-",
+                    tog_volume_cmd = "amixer -D pulse sset Master toggle",
+                }),
+                sprtr,
+                batteryarc_widget({
+                    show_current_level = true,
+                }),
+                sprtr,
+                mytextclock,
+                sprtr,
+                s.mylayoutbox,
+            },
         },
-        s.mytasklist, -- Middle widget
-        { -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
-            wibox.widget.systray(),
-            sprtr,
-            mykeyboardlayout,
-            sprtr,
-            -- ram_widget(),
-            -- sprtr,
-            -- cpu_widget(),
-            -- sprtr,
-            -- tempwidget,
-            -- sprtr,
-            -- wifiwidget,
-            optimus,
-            sprtr,
-            net_wireless,
-            sprtr,
-            brightnessarc_widget(),
-            sprtr,
-            volumearc_widget({
-                main_color = '#e9ddcf',
-                -- mute_color = '#ff0000',
-                -- thickness = 5,
-                height = 20,
-                get_volume_cmd = "amixer sget Master",
-                inc_volume_cmd = "amixer sset Master 5%+",
-                dec_volume_cmd = "amixer sset Master 5%-",
-                tog_volume_cmd = "amixer -D pulse sset Master toggle",
-            }),
-            sprtr,
-            batteryarc_widget({
-                show_current_level = true,
-            }),
-            sprtr,
-            mytextclock,
-            sprtr,
-            s.mylayoutbox,
-        },
+        top = 4,
+        bottom = 4, -- don't forget to increase wibar height
+        color = "#313131",
+        widget = wibox.container.margin,
     }
 end)
 -- }}}
