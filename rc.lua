@@ -272,7 +272,7 @@ awful.screen.connect_for_each_screen(function(s)
         filter   = awful.widget.tasklist.filter.currenttags,
         buttons  = tasklist_buttons,
         style    = {
-            shape_border_width = 2,
+            shape_border_width = 1,
             shape_border_color = '#777777',
             shape  = gears.shape.rounded_rect,
         },
@@ -290,7 +290,7 @@ awful.screen.connect_for_each_screen(function(s)
                             id     = 'icon_role',
                             widget = wibox.widget.imagebox,
                         },
-                        margins = 5,
+                        margins = 4,
                         widget  = wibox.container.margin,
                     },
                     {
@@ -299,8 +299,8 @@ awful.screen.connect_for_each_screen(function(s)
                     },
                     layout = wibox.layout.fixed.horizontal,
                 },
-                left  = 10,
-                right = 10,
+                left  = 4,
+                right = 4,
                 widget = wibox.container.margin
             },
             id     = 'background_role',
