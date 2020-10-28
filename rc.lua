@@ -277,7 +277,7 @@ awful.screen.connect_for_each_screen(function(s)
             shape  = gears.shape.rounded_rect,
         },
         layout   = {
-            spacing = 10,
+            spacing = 4,
             layout  = wibox.layout.flex.horizontal
         },
         -- Notice that there is *NO* wibox.wibox prefix, it is a template,
