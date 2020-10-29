@@ -259,22 +259,21 @@ awful.screen.connect_for_each_screen(function(s)
                            awful.button({ }, 3, function () awful.layout.inc(-1) end),
                            awful.button({ }, 4, function () awful.layout.inc( 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
+                           
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist {
         screen  = s,
         filter  = awful.widget.taglist.filter.all,
         buttons = taglist_buttons
     }
-
+    
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist {
         screen   = s,
         filter   = awful.widget.tasklist.filter.currenttags,
         buttons  = tasklist_buttons,
         style    = {
-            shape_border_width = 1,
-            shape_border_color = '#777777',
-            shape  = gears.shape.rounded_bar,
+            shape  = gears.shape.rounded_rect,
         },
         layout   = {
             spacing = 4,
@@ -853,10 +852,10 @@ client.connect_signal("focus", function(c) c.border_color = beautiful.border_foc
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
-client.connect_signal("property::class", function(c) 
-    if c.class == "conky (archlinux)" then
-        c.border_width = 0
-        end
+client.connect_signal("manage", function (c)
+    c.shape = function(cr,w,h)
+        gears.shape.rounded_rect(cr,w,h,12)
+    end
 end)
 
 client.connect_signal("manage", function (c)
@@ -864,6 +863,20 @@ client.connect_signal("manage", function (c)
         gears.shape.rounded_rect(cr,w,h,15)
     end
 end)
+
+client.connect_signal("property::fullscreen", function (c)
+        if c.fullscreen then
+            c.shape = function(cr,w,h)
+                gears.shape.rectangle(cr,w,h,15)
+             end
+        else
+            c.shape = function(cr,w,h)
+                gears.shape.rounded_rect(cr,w,h,15)
+            end
+        end
+end)
+
+
 
 require("collision")()
 
