@@ -272,7 +272,7 @@ awful.screen.connect_for_each_screen(function(s)
         buttons  = tasklist_buttons,
         style    = {
             shape  = gears.shape.rounded_rect,
-            shape_border_width = 0.5,
+            -- shape_border_width = 0.5,
         },
         layout   = {
             spacing = 4,
@@ -328,7 +328,6 @@ awful.screen.connect_for_each_screen(function(s)
         shape = gears.shape.rounded_rect,
         border_width = 2,
         border_color = beautiful.border_normal,
-        ontop = true
     })
     s.mywibox.visible = true
 
