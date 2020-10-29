@@ -69,7 +69,7 @@ end
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init("~/.config/awesome/themes/default/theme.lua")
 beautiful.font = "URW Gothic 10"
-beautiful.useless_gap = 10
+beautiful.useless_gap = 5
 for s = 1, screen.count() do
 	gears.wallpaper.maximized(beautiful.wallpaper, s, true)
 end
@@ -272,13 +272,14 @@ awful.screen.connect_for_each_screen(function(s)
         buttons  = tasklist_buttons,
         style    = {
             shape  = gears.shape.rounded_rect,
+            shape_border_width = 0.5,
         },
         layout   = {
             spacing = 4,
             spacing_widget = {
                 {
                     forced_width = 4,
-                    shape        = gears.shape.circle,
+                    shape        = gears.shape.rounded_rect,
                     color        = '#222222',
                     widget       = wibox.widget.separator
                 },
@@ -316,13 +317,20 @@ awful.screen.connect_for_each_screen(function(s)
         },
     }
     
-
+    s.padding = { top = 50 }
     -- Create the wibox
-    s.mywibox = awful.wibar({ 
-        position = "top", 
+    s.mywibox = wibox({ 
+        x = 10, 
         screen = s, 
-        height = 32,
-     })
+        y = 10, 
+        width = 1895, 
+        height = 36,
+        shape = gears.shape.rounded_rect,
+        border_width = 2,
+        border_color = beautiful.border_normal,
+        ontop = true
+    })
+    s.mywibox.visible = true
 
     -- Splitters
     sprtr = wibox.widget.textbox()
@@ -444,7 +452,7 @@ awful.screen.connect_for_each_screen(function(s)
                 sprtr,
                 volumearc_widget({
                     main_color = '#e9ddcf',
-                    -- mute_color = '#ff0000',
+                    -- mute_color = ""
                     -- thickness = 5,
                     height = 20,
                     get_volume_cmd = "amixer sget Master",
@@ -463,6 +471,8 @@ awful.screen.connect_for_each_screen(function(s)
             },
         },
         top = 4,
+        left = 4,
+        right = 4,
         bottom = 4, -- don't forget to increase wibar height
         color = "#222222",
         widget = wibox.container.margin,
@@ -733,28 +743,6 @@ awful.rules.rules = {
 
         }
     },
-
-    { rule_any = { 
-        class = {
-            "Conky",
-        }
-    },
-      properties = { 
-          border_width = dpi(0)
-     }
-    },
-
-    { rule_any = { 
-        class = {
-            "Terminator",
-        }
-    },
-      properties = { 
-        border_width = dpi(20),
-        border_color = beautiful.terminal_border,
-     }
-    },
-
     -- Floating clients.
     { rule_any = {
         instance = {
@@ -791,6 +779,28 @@ awful.rules.rules = {
       }, properties = { titlebars_enabled = false }
     },
 
+    { rule_any = { 
+        class = {
+            "Conky",
+        }
+    },
+      properties = { 
+          border_width = dpi(0),
+          titlebars_enabled = false,
+     }
+    },
+
+    { rule_any = { 
+        class = {
+            "Terminator",
+        }
+    },
+      properties = { 
+          titlebars_enabled = true,
+     }
+    },
+
+
     -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { screen = 1, tag = "2" } },
@@ -815,42 +825,33 @@ end)
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
 client.connect_signal("request::titlebars", function(c)
     -- buttons for the titlebar
-    local buttons = gears.table.join(
-        awful.button({ }, 1, function()
-            c:emit_signal("request::activate", "titlebar", {raise = true})
-            awful.mouse.client.move(c)
-        end),
-        awful.button({ }, 3, function()
-            c:emit_signal("request::activate", "titlebar", {raise = true})
-            awful.mouse.client.resize(c)
-        end)
-    )
+    awful.titlebar(c, {
+        size = 30,
+        bg_normal = beautiful.bg_normal,
+        bg_focus = beautiful.bg_normal,
+    })
+    
+    awful.titlebar(c, {
+        size    = 30,
+        bg_normal = beautiful.bg_normal,
+        bg_focus = beautiful.bg_normal,
+        position = 'left'
+    })
 
-    awful.titlebar(c) : setup {
-        { -- Left
-	        height = 20,
-            awful.titlebar.widget.iconwidget(c),
-            buttons = buttons,
-            layout  = wibox.layout.fixed.horizontal
-        },
-        { -- Middle
-            { -- Title
-                align  = "center",
-                widget = awful.titlebar.widget.titlewidget(c)
-            },
-            buttons = buttons,
-            layout  = wibox.layout.flex.horizontal,
-        },
-        { -- Right
-            awful.titlebar.widget.floatingbutton (c),
-            awful.titlebar.widget.maximizedbutton(c),
-            awful.titlebar.widget.stickybutton   (c),
-            awful.titlebar.widget.ontopbutton    (c),
-            awful.titlebar.widget.closebutton    (c),
-            layout = wibox.layout.fixed.horizontal()
-        },
-        layout = wibox.layout.align.horizontal
-    }
+    awful.titlebar(c, {
+        size    = 30,
+        bg_normal = beautiful.bg_normal,
+        bg_focus = beautiful.bg_normal,
+        position = 'right'
+    })
+
+    awful.titlebar(c, {
+        size    = 30,
+        bg_normal = beautiful.bg_normal,
+        bg_focus = beautiful.bg_normal,
+        position = 'bottom'
+    })
+
 end)
 
 -- Enable sloppy focus, so that focus follows mouse.
@@ -866,12 +867,6 @@ end)
 
 client.connect_signal("manage", function (c)
     c.shape = function(cr,w,h)
-        gears.shape.rounded_rect(cr,w,h,12)
-    end
-end)
-
-client.connect_signal("manage", function (c)
-    c.shape = function(cr,w,h)
         gears.shape.rounded_rect(cr,w,h,15)
     end
 end)
@@ -879,11 +874,11 @@ end)
 client.connect_signal("property::fullscreen", function (c)
         if c.fullscreen then
             c.shape = function(cr,w,h)
-                gears.shape.rectangle(cr,w,h,15)
+                gears.shape.rectangle(cr,w,h,10)
              end
         else
             c.shape = function(cr,w,h)
-                gears.shape.rounded_rect(cr,w,h,15)
+                gears.shape.rounded_rect(cr,w,h,10)
             end
         end
 end)
