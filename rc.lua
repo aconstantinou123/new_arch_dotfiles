@@ -280,7 +280,7 @@ awful.screen.connect_for_each_screen(function(s)
                 {
                     forced_width = 4,
                     shape        = gears.shape.rounded_rect,
-                    color        = '#222222',
+                    color        = beautiful.bg_normal,
                     widget       = wibox.widget.separator
                 },
                 valign = 'center',
@@ -317,7 +317,7 @@ awful.screen.connect_for_each_screen(function(s)
         },
     }
     
-    s.padding = { top = 50 }
+    s.padding = { top = 49 }
     -- Create the wibox
     s.mywibox = wibox({ 
         x = 10, 
@@ -474,7 +474,7 @@ awful.screen.connect_for_each_screen(function(s)
         left = 4,
         right = 4,
         bottom = 4, -- don't forget to increase wibar height
-        color = "#222222",
+        color = beautiful.bg_normal,
         widget = wibox.container.margin,
     }
 end)
