@@ -67,7 +67,6 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-awful.util.spawn_with_shell("picom --blur-method dual_kawase --blur-strength 9 --experimental-backends --config ~/.config/picom/picom.conf")
 beautiful.init("~/.config/awesome/themes/default/theme.lua")
 beautiful.font = "URW Gothic 10"
 beautiful.useless_gap = 10
@@ -245,7 +244,6 @@ screen.connect_signal("property::geometry", set_wallpaper)
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
-
     -- Each screen has its own tag table.
     awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
 
@@ -281,7 +279,7 @@ awful.screen.connect_for_each_screen(function(s)
                 {
                     forced_width = 4,
                     shape        = gears.shape.circle,
-                    color        = '#313131',
+                    color        = '#222222',
                     widget       = wibox.widget.separator
                 },
                 valign = 'center',
@@ -466,7 +464,7 @@ awful.screen.connect_for_each_screen(function(s)
         },
         top = 4,
         bottom = 4, -- don't forget to increase wibar height
-        color = "#313131",
+        color = "#222222",
         widget = wibox.container.margin,
     }
 end)
@@ -732,6 +730,7 @@ awful.rules.rules = {
                      buttons = clientbuttons,
                      screen = awful.screen.preferred,
                      placement = awful.placement.no_overlap+awful.placement.no_offscreen
+
         }
     },
 
@@ -742,6 +741,17 @@ awful.rules.rules = {
     },
       properties = { 
           border_width = dpi(0)
+     }
+    },
+
+    { rule_any = { 
+        class = {
+            "Terminator",
+        }
+    },
+      properties = { 
+        border_width = dpi(20),
+        border_color = beautiful.terminal_border,
      }
     },
 
@@ -793,7 +803,7 @@ client.connect_signal("manage", function (c)
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
     -- if not awesome.startup then awful.client.setslave(c) end
-
+    
     if awesome.startup
       and not c.size_hints.user_position
       and not c.size_hints.program_position then
@@ -848,9 +858,11 @@ client.connect_signal("mouse::enter", function(c)
     c:emit_signal("request::activate", "mouse_enter", {raise = false})
 end)
 
-client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
--- }}}
+-- client.connect_signal("focus", function(c) 
+--     c.border_color = beautiful.border_focus 
+-- end)
+-- client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+-- -- }}}
 
 client.connect_signal("manage", function (c)
     c.shape = function(cr,w,h)
