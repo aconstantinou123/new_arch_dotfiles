@@ -120,6 +120,7 @@ configmenu = {
     { "awesome theme", "code .config/awesome/themes/default/theme.lua" },
     { "conky", "code .config/conky/conky.conf"},
     { "lightdm", "sudo code /etc/lightdm/slick-greeter.conf"},
+    { "picom", "code .config/picom/picom.conf"},
     { "terminator", "code .config/terminator/config"},
     { "xinit", "code .xinitrc" },
     { "zsh", "code .zshrc" },
@@ -361,31 +362,31 @@ awful.screen.connect_for_each_screen(function(s)
                     image = "/home/alex/.config/awesome/buttons/vscode.png",
                     command = "code"
                 }),
-                double_space,
-                custom_button({
-                    image = "/home/alex/.config/awesome/buttons/vim.png",
-                    command = terminal .. " -e vim"
-                }),
+                -- double_space,
+                -- custom_button({
+                --     image = "/home/alex/.config/awesome/buttons/vim.png",
+                --     command = terminal .. " -e vim"
+                -- }),
                 double_space,
                 custom_button({
                     image = "/home/alex/.config/awesome/buttons/terminal.png",
                     command = terminal
                 }),
-                single_space,
-                custom_button({
-                    image = "/home/alex/.config/awesome/buttons/kube-forwarder.png",
-                    command = "~/apps/kube-forwarder/kube-forwarder.AppImage"
-                }),
+                -- single_space,
+                -- custom_button({
+                --     image = "/home/alex/.config/awesome/buttons/kube-forwarder.png",
+                --     command = "~/apps/kube-forwarder/kube-forwarder.AppImage"
+                -- }),
                 single_space,
                 custom_button({
                     image = "/home/alex/.config/awesome/buttons/postman.png",
                     command = "postman"
                 }),
-                single_space,
-                custom_button({
-                    image = "/home/alex/.config/awesome/buttons/mongodb.png",
-                    command = "robo3t"
-                }),
+                -- single_space,
+                -- custom_button({
+                --     image = "/home/alex/.config/awesome/buttons/mongodb.png",
+                --     command = "robo3t"
+                -- }),
                 single_space,
                 custom_button({
                     image = "/home/alex/.config/awesome/buttons/brave.png",
@@ -410,16 +411,16 @@ awful.screen.connect_for_each_screen(function(s)
                     image = "/home/alex/.config/awesome/buttons/steam.png",
                     command = "flatpak run com.valvesoftware.Steam"
                 }),
-                single_space,
-                custom_button({
-                    image = "/home/alex/.config/awesome/buttons/skype.png",
-                    command = "skypeforlinux"
-                }),
-                single_space,
-                custom_button({
-                    image = "/home/alex/.config/awesome/buttons/slack.png",
-                    command = "slack"
-                }),
+                -- single_space,
+                -- custom_button({
+                --     image = "/home/alex/.config/awesome/buttons/skype.png",
+                --     command = "skypeforlinux"
+                -- }),
+                -- single_space,
+                -- custom_button({
+                --     image = "/home/alex/.config/awesome/buttons/slack.png",
+                --     command = "slack"
+                -- }),
                 double_space,
                 custom_button({
                     image = "/home/alex/.config/awesome/buttons/gimp.png",
@@ -516,6 +517,24 @@ globalkeys = gears.table.join(
     -- Brightness 
     awful.key({ modkey         }, ";", function () awful.spawn("light -A 5") end, {description = "increase brightness", group = "custom"}),
     awful.key({ modkey, "Shift"}, ";", function () awful.spawn("light -U 5") end, {description = "decrease brightness", group = "custom"}),
+    
+    awful.key({ modkey         }, "q",  
+        function ()
+            local conky
+            for _, c in ipairs(client.get()) do
+                if c.class == 'Conky' then
+                    conky = c
+                end
+            end
+            if conky then
+                if not conky.hidden then
+                    conky.hidden = true
+                else
+                    conky.hidden = false
+                end
+            end
+        end, 
+        {description = "increase brightness", group = "custom"}),
 
     -- Sound
     awful.key({ modkey}, "]", function () awful.spawn("amixer sset Master 5%+") end, {description = "increase volume", group = "custom"}),
@@ -636,6 +655,11 @@ clientkeys = gears.table.join(
             -- The client currently has the input focus, so it cannot be
             -- minimized, since minimized clients can't have the focus.
             c.minimized = true
+        end ,
+        {description = "minimize", group = "client"}),
+    awful.key({ modkey,           }, "e",
+        function (c)
+            print('click')
         end ,
         {description = "minimize", group = "client"}),
     awful.key({ modkey,           }, "m",
@@ -881,8 +905,6 @@ client.connect_signal("property::fullscreen", function (c)
             end
         end
 end)
-
-
 
 require("collision")()
 
